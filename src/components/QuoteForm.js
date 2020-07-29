@@ -12,14 +12,14 @@ class QuoteForm extends Component {
     id: uuid()
   }
 
-  handleOnChange = event => {
+  handleOnChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
-  handleOnSubmit = event => {
-    event.preventDefault();
+  handleOnSubmit = e => {
+    e.preventDefault();
     let quote = this.state;
     this.props.addQuote(quote);
     this.setState({
@@ -37,13 +37,15 @@ class QuoteForm extends Component {
           <div className="col-md-8 col-md-offset-2">
             <div className="panel panel-default">
               <div className="panel-body">
-                <form className="form-horizontal">
+                <form className="form-horizontal" onSubmit={(e) => this.handleOnSubmit(e)}>
                   <div className="form-group">
                     <label htmlFor="content" className="col-md-4 control-label">Quote</label>
                     <div className="col-md-5">
                       <textarea
                         className="form-control"
+                        name="content"
                         value={this.state.content}
+                        onChange={(e) => this.handleOnChange(e)}
                       />
                     </div>
                   </div>
@@ -53,6 +55,7 @@ class QuoteForm extends Component {
                       <input
                         className="form-control"
                         type="text"
+                        name="author"
                         value={this.state.author}
                         onChange={e => this.handleOnChange(e)}
                       />
